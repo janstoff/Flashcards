@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, StatusBar } from 'react-native'
 import Start from './components/Start'
-import DeckList from './components/DeckList'
 import AddDeck from './components/AddDeck'
 import Deck from './components/Deck'
 import Quiz from './components/Quiz'
@@ -21,16 +20,10 @@ function CustomStatusBar({ backgroundColor, ...props }) {
 }
 
 const MainNavigator = StackNavigator({
-	Home: {
+	Start: {
 		screen: Start,
 		navigationOptions: {
-			title: 'Start'
-		}
-	},
-	DeckList: {
-		screen: DeckList,
-		navigationOptions: {
-			title: 'Your Decks',
+			title: 'Start',
 			headerTintColor: white,
 			headerStyle: {
 				backgroundColor: blue
@@ -50,7 +43,7 @@ const MainNavigator = StackNavigator({
   Deck: {
 		screen: Deck,
 		navigationOptions: {
-			title: 'Add a new Deck',
+			title: 'Selected Deck',
 			headerTintColor: white,
 			headerStyle: {
 				backgroundColor: blue
@@ -79,7 +72,7 @@ const MainNavigator = StackNavigator({
 	}
 })
 
-export default class App extends Component {
+class App extends Component {
 	render() {
 		return (
       <Provider store={store}>
@@ -91,3 +84,5 @@ export default class App extends Component {
 		)
 	}
 }
+
+export default (App)

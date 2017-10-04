@@ -16,11 +16,11 @@ class AddDeck extends Component {
 	}
 
 	submit = deck => {
-    this.props.dispatch(addDeck(this.state))
+    this.props.addDeck(this.state)
 
 		//add Deck to AsyncStorage
 
-		this.props.navigation.navigate('DeckList')
+		this.props.navigation.navigate('Start')
 	}
 
 	render() {
@@ -64,7 +64,14 @@ const styles = StyleSheet.create({
 		borderRadius: 3,
 		backgroundColor: lightBlue,
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
+		shadowRadius: 3,
+		shadowOpacity: 0.4,
+		shadowColor: lightBlue,
+		shadowOffset: {
+			width: 0,
+			height: 3
+		}
 	},
 	buttonText: {
 		color: white,
@@ -78,4 +85,4 @@ function mapStateToProps({ decks }) {
 	}
 }
 
-export default connect(mapStateToProps)(AddDeck)
+export default connect(mapStateToProps, { addDeck })(AddDeck)

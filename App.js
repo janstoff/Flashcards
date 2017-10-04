@@ -9,7 +9,7 @@ import store from './Store'
 import { Provider } from 'react-redux'
 import { Constants } from 'expo'
 import { blue, white } from './utils/colors'
-import { StackNavigator } from 'react-navigation'
+import { StackNavigator, NavigationActions } from 'react-navigation'
 
 function CustomStatusBar({ backgroundColor, ...props }) {
 	return (
@@ -43,7 +43,6 @@ const MainNavigator = StackNavigator({
   Deck: {
 		screen: Deck,
 		navigationOptions: {
-			title: 'Selected Deck',
 			headerTintColor: white,
 			headerStyle: {
 				backgroundColor: blue

@@ -6,27 +6,21 @@ export const SELECT_DECK = 'SELECT_DECK'
 export function receiveDecks(decks) {
 	return {
 		type: RECEIVE_DECKS,
-		payload: decks
+		decks
 	}
 }
 
 export function addDeck(deck) {
 	return {
 		type: ADD_DECK,
-		payload: deck
+		deck
 	}
 }
 
-export function addCard(card) {
+export function addCard(card, deck) {
 	return {
 		type: ADD_CARD,
-		payload: card
-	}
-}
-
-export function selectDeck(deckTitle) {
-	return {
-		type: SELECT_DECK,
-		payload: deckTitle
+		card,
+		deck
 	}
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { green, red, white } from '../utils/colors'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { green, red, white, orange } from '../utils/colors'
 
 
 export default class Quiz extends Component {
@@ -10,7 +10,7 @@ export default class Quiz extends Component {
         <Text>This the selected Quiz and Question</Text>
         <Text>Question number x out of y</Text>
         <Text>Question Text</Text>
-        <Text style={{ color: organge, fontSize: 20 }}>see Answer</Text>
+        <Text style={{ color: orange, fontSize: 20 }}>see Answer</Text>
         <TouchableOpacity style={styles.button1}>
           <Text style={styles.buttonText}>Correct</Text>
         </TouchableOpacity>
@@ -37,6 +37,13 @@ const styles = StyleSheet.create({
     backgroundColor: green,
     alignItems: 'center',
     justifyContent: 'center',
+    shadowRadius: 3,
+		shadowOpacity: 0.4,
+		shadowColor: green,
+		shadowOffset: {
+			width: 0,
+			height: 3
+		}
   },
   button2: {
     margin: 10,
@@ -46,6 +53,13 @@ const styles = StyleSheet.create({
     backgroundColor: red,
     alignItems: 'center',
     justifyContent: 'center',
+    shadowRadius: 3,
+		shadowOpacity: 0.4,
+		shadowColor: red,
+		shadowOffset: {
+			width: 0,
+			height: 3
+		}
   },
   buttonText: {
     color: white,

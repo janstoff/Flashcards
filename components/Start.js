@@ -1,20 +1,12 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import { blue, white, lightBlue } from '../utils/colors'
+import { blue, white, lightBlue, orange } from '../utils/colors'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import { selectDeck } from '../actions'
+import { Entypo } from '@expo/vector-icons'
+
 
 class Start extends Component {
-
-  onSelectDeck = (deckTitle) => {
-    const { navigation, selectDeck } = this.props
-
-    navigation.navigate('Deck')
-
-    selectDeck(deckTitle)
-  }
-
 	render() {
 		const { navigation, decks } = this.props
 
@@ -26,7 +18,7 @@ class Start extends Component {
 							<TouchableOpacity
                 key={deck.title}
 								style={styles.button1}
-								onPress={() => this.onSelectDeck(deck.title)}>
+								onPress={() => navigation.navigate('Deck', { activeDeck: deck.title })}>
 								<Text style={styles.buttonText}>{deck.title}</Text>
 							</TouchableOpacity>
 						)
@@ -34,7 +26,7 @@ class Start extends Component {
 				<TouchableOpacity
 					style={styles.button2}
 					onPress={() => navigation.navigate('AddDeck')}>
-					<Text style={styles.buttonText}>Create New Card Deck</Text>
+					<Entypo name='plus' style={{ color: white }} size={30}></Entypo>
 				</TouchableOpacity>
 			</View>
 		)
@@ -57,12 +49,12 @@ const styles = StyleSheet.create({
 		height: 60,
 		width: 250,
 		borderRadius: 3,
-		backgroundColor: blue,
+		backgroundColor: orange,
 		alignItems: 'center',
 		justifyContent: 'center',
 		shadowRadius: 3,
 		shadowOpacity: 0.4,
-		shadowColor: blue,
+		shadowColor: orange,
 		shadowOffset: {
 			width: 0,
 			height: 3
@@ -97,4 +89,4 @@ function mapStateToProps({ decks }) {
 	}
 }
 
-export default connect(mapStateToProps, { selectDeck })(Start)
+export default connect(mapStateToProps)(Start)

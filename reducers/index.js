@@ -11,28 +11,31 @@ action)
 		case RECEIVE_DECKS:
 			return {
 				...state,
-				decks: action.payload
+				decks: action.decks
 			}
 		case ADD_DECK:
 			return {
 				...state,
-				decks: { ...decks, [action.payload.title]: action.payload }
+				decks: {
+					...state.decks,
+					[action.deck.title]: {
+						...state.decks[action.deck.title], ...action.deck
+					}
+				}
 			}
 		case ADD_CARD:
 			return {
 				...state,
 				decks: {
 					...state.decks,
-					questions: {
-						...state.decks.questions, ...action.payload
+					[action.deck]: {
+						...state.decks[action.deck],
+						questions: [
+							...state.decks[action.deck].questions, action.card
+						]
 					}
 				}
 			}
-		case SELECT_DECK:
-		return {
-			...state,
-			selectedDeck: action.payload
-		}
 		default:
 			return state
 	}

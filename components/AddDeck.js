@@ -9,7 +9,9 @@ import {
 import { lightBlue, white, gray } from '../utils/colors'
 import { connect } from 'react-redux'
 import { addDeck } from '../actions'
-import { NavigationActions } from 'react-navigation'
+
+const uuid = require('uuid/v4')
+
 
 
 class AddDeck extends Component {
@@ -19,14 +21,14 @@ class AddDeck extends Component {
 
 	submit() {
 		const { navigation, addDeck } = this.props
-
-		addDeck(this.state) //to redux state
+		const deck = this.state.title
+		const id = uuid()
+		
+		addDeck(deck, id) //to redux state
 
 		//add Deck to AsyncStorage
 
-		navigation.dispatch(NavigationActions.back({
-			key: 'AddDeck'
-		}))
+		navigation.goBack()
 	}
 
 	render() {
@@ -36,7 +38,7 @@ class AddDeck extends Component {
 				<TextInput
 					style={styles.textInput}
 					value={this.state.title}
-					onChangeText={title => this.setState({ title: title })}
+					onChangeText={input => this.setState({ title: input })}
 				/>
 				<TouchableOpacity style={styles.button} onPress={() => this.submit()}>
 					<Text style={styles.buttonText}>SUBMIT</Text>

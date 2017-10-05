@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 import { gray, white } from '../utils/colors'
 import { addCard } from '../actions'
 import { connect } from 'react-redux'
-import { NavigationActions } from 'react-navigation'
 
 class AddCard extends Component {
 	state = {
@@ -21,19 +20,19 @@ class AddCard extends Component {
 		// add question to AsyncStorage
 
 		//navigate back to Deck
-		navigation.dispatch(NavigationActions.back({
-      key: 'AddCard'
-    }))
+		navigation.goBack()
 	}
 
 	render() {
 		return (
 			<View style={styles.container}>
+        <Text>Question:</Text>
 				<TextInput
 					style={styles.textInput}
 					value={this.state.question}
 					onChangeText={input => this.setState({ question: input })}
 				/>
+        <Text>Answer:</Text>
 				<TextInput
 					style={styles.textInput}
 					value={this.state.answer}

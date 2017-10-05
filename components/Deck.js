@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { gray, black, white, lightOrange, orange } from '../utils/colors'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 
 class Deck extends Component {
 
@@ -9,26 +10,24 @@ class Deck extends Component {
     const { activeDeck } = navigation.state.params
 
     return {
-      title: `${activeDeck}`
+      title: `${activeDeck.title}`
     }
   }
 
 	render() {
-		const { deck, navigation } = this.props
-
-    console.log(deck)
+		const { deck, cards, navigation } = this.props
 
 		return (
 			<View style={styles.container}>
         <View style={styles.deckInfo}>
           <Text style={styles.textTitle}>{deck.title}</Text>
-  				<Text>{deck.questions ? deck.questions.length : 0} Cards</Text>
+  				<Text>{cards ? cards.length : 0} Cards</Text>
         </View>
 				<TouchableOpacity style={styles.button1}>
-					<Text style={styles.buttonText} onPress={() => navigation.navigate('AddCard', { activeDeck: deck.title })}>Add Card</Text>
+					<Text style={styles.buttonText} onPress={() => navigation.navigate('AddCard', { activeDeck: deck })}>Add Card</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.button2}>
-					<Text style={styles.buttonText} onPress={() => navigation.navigate('Quiz', { activeDeck: deck.title })}>Start Quiz</Text>
+					<Text style={styles.buttonText} onPress={() => navigation.navigate('Quiz', { activeDeck: deck })}>Start Quiz</Text>
 				</TouchableOpacity>
 			</View>
 		)
@@ -102,11 +101,12 @@ const styles = StyleSheet.create({
 	}
 })
 
-function mapStateToProps({ decks, navigation }, ownProps) {
+function mapStateToProps({ decks, cards, navigation }, ownProps) {
   const { activeDeck } = ownProps.navigation.state.params
 
 	return {
-		deck: decks[activeDeck]
+		deck: decks[activeDeck.id],
+    cards: _.filter(cards, { deckID: activeDeck.id})
 	}
 }
 

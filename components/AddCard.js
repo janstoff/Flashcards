@@ -1,8 +1,16 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
+import {
+	StyleSheet,
+	Text,
+	View,
+	TextInput,
+	TouchableOpacity
+} from 'react-native'
 import { gray, white } from '../utils/colors'
 import { addCard } from '../actions'
 import { connect } from 'react-redux'
+
+const uuid = require('uuid/v4')
 
 class AddCard extends Component {
 	state = {
@@ -12,10 +20,16 @@ class AddCard extends Component {
 
 	submit() {
 		const { navigation, addCard } = this.props
-    const { activeDeck } = navigation.state.params
+		const { activeDeck } = navigation.state.params
+		const card = {
+			question: this.state.question,
+			answer: this.state.answer,
+			deckID: activeDeck.id
+		}
+		const id = uuid()
 
 		// add question to redux state
-		addCard(this.state, activeDeck)
+		addCard(card, id)
 
 		// add question to AsyncStorage
 
@@ -26,13 +40,13 @@ class AddCard extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-        <Text>Question:</Text>
+				<Text>Question:</Text>
 				<TextInput
 					style={styles.textInput}
 					value={this.state.question}
 					onChangeText={input => this.setState({ question: input })}
 				/>
-        <Text>Answer:</Text>
+				<Text>Answer:</Text>
 				<TextInput
 					style={styles.textInput}
 					value={this.state.answer}
@@ -82,6 +96,5 @@ const styles = StyleSheet.create({
 		fontSize: 15
 	}
 })
-
 
 export default connect(null, { addCard })(AddCard)

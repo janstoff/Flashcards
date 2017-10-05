@@ -16,9 +16,9 @@ class Start extends Component {
 					_.map(decks, deck => {
 						return (
 							<TouchableOpacity
-                key={deck.title}
+                key={deck.id}
 								style={styles.button1}
-								onPress={() => navigation.navigate('Deck', { activeDeck: deck.title })}>
+								onPress={() => navigation.navigate('Deck', { activeDeck: deck })}>
 								<Text style={styles.buttonText}>{deck.title}</Text>
 							</TouchableOpacity>
 						)

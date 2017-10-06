@@ -3,8 +3,22 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { blue, white, lightBlue, orange } from '../utils/colors'
 import { connect } from 'react-redux'
 import _ from 'lodash'
+import { fetchDecks, fetchCards } from '../utils/api'
+import { receiveDecks, receiveCards } from '../actions'
+
 
 class Start extends Component {
+
+	componentDidMount() {
+		const { dispatch, receiveDecks, receiveCards } = this.props
+
+		fetchDecks()
+			.then(decks => receiveDecks(decks))
+
+		fetchCards()
+			.then(cards => receiveCards(cards))
+	}
+
 	render() {
 		const { navigation, decks } = this.props
 
@@ -87,4 +101,4 @@ function mapStateToProps({ decks }) {
 	}
 }
 
-export default connect(mapStateToProps)(Start)
+export default connect(mapStateToProps, { receiveDecks, receiveCards })(Start)

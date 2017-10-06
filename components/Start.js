@@ -3,8 +3,6 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { blue, white, lightBlue, orange } from '../utils/colors'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import { Entypo } from '@expo/vector-icons'
-
 
 class Start extends Component {
 	render() {
@@ -26,7 +24,7 @@ class Start extends Component {
 				<TouchableOpacity
 					style={styles.button2}
 					onPress={() => navigation.navigate('AddDeck')}>
-					<Entypo name='plus' style={{ color: white }} size={30}></Entypo>
+					<Text style={styles.buttonText}>Add a new Deck</Text>
 				</TouchableOpacity>
 			</View>
 		)
@@ -63,7 +61,7 @@ const styles = StyleSheet.create({
 	button2: {
 		margin: 20,
 		padding: 5,
-		height: 60,
+		height: 40,
 		width: 250,
 		borderRadius: 3,
 		backgroundColor: lightBlue,

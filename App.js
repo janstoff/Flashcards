@@ -52,7 +52,6 @@ const MainNavigator = StackNavigator({
   Quiz: {
 		screen: Quiz,
 		navigationOptions: {
-			title: 'Quiz',
 			headerTintColor: white,
 			headerStyle: {
 				backgroundColor: blue

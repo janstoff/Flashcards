@@ -3,7 +3,7 @@ import { AsyncStorage } from 'react-native'
 const DECKS_STORAGE_KEY = 'FlashcardsDecks'
 const CARDS_STORAGE_KEY = 'FlashcardsCards'
 
-export function submitDeck({ deck, id }) {
+export function submitDeck(deck, id) {
 	return AsyncStorage.mergeItem(
 		DECKS_STORAGE_KEY,
 		JSON.stringify({

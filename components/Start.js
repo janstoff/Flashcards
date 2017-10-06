@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
 import { blue, white, lightBlue, orange } from '../utils/colors'
 import { connect } from 'react-redux'
 import _ from 'lodash'
@@ -24,17 +24,19 @@ class Start extends Component {
 
 		return (
 			<View style={styles.container}>
-				{decks &&
-					_.map(decks, deck => {
-						return (
-							<TouchableOpacity
-                key={deck.id}
-								style={styles.button1}
-								onPress={() => navigation.navigate('Deck', { activeDeck: deck })}>
-								<Text style={styles.buttonText}>{deck.title}</Text>
-							</TouchableOpacity>
-						)
-					})}
+				<ScrollView contentContainerStyle={styles.container}>
+					{decks &&
+						_.map(decks, deck => {
+							return (
+								<TouchableOpacity
+	                key={deck.id}
+									style={styles.button1}
+									onPress={() => navigation.navigate('Deck', { activeDeck: deck })}>
+									<Text style={styles.buttonText}>{deck.title}</Text>
+								</TouchableOpacity>
+							)
+						})}
+				</ScrollView>
 				<TouchableOpacity
 					style={styles.button2}
 					onPress={() => navigation.navigate('AddDeck')}>

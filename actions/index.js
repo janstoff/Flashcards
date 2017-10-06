@@ -13,7 +13,7 @@ export function receiveDecks(decks) {
 }
 
 export function addDeck(deck, id) {
-	submitDeck({ deck, id })
+	submitDeck(deck, id)
 	return {
 		type: ADD_DECK,
 		deck,

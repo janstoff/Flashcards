@@ -47,7 +47,7 @@ class Deck extends Component {
 						Add Card
 					</Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.button2}>
+				<TouchableOpacity style={styles.buttonStart}>
 					<Text
 						style={styles.buttonText}
 						onPress={() => this.onNavigateToQuiz()}>
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
 			height: 3
 		}
 	},
-	button2: {
+	buttonStart: {
 		margin: 10,
 		padding: 5,
 		height: 40,

@@ -36,6 +36,15 @@ class Quiz extends Component {
 		})
 	}
 
+  onRestart() {
+    this.setState({
+      cardIndex: 0,
+      questionMode: true,
+      correct: 0,
+      incorrect: 0
+    })
+  }
+
 	render() {
 		const { questionMode, cardIndex, correct, incorrect } = this.state
 		const { cards, navigation } = this.props
@@ -45,7 +54,14 @@ class Quiz extends Component {
 		if (cards[cardIndex] === undefined) {
 			return (
 				<View style={styles.container}>
-					<Text>You got {result * 100}% of answers correct.</Text>
+					<Text>You got {result * 100}% of answers correct this time.</Text>
+          <TouchableOpacity style={styles.buttonStart}>
+  					<Text
+  						style={styles.buttonText}
+  						onPress={() => this.onRestart()}>
+  						Restart Quiz
+  					</Text>
+          </TouchableOpacity>
 					<TouchableOpacity
 						style={styles.buttonHome}
 						onPress={() => navigation.navigate('Start')}>
@@ -162,6 +178,22 @@ const styles = StyleSheet.create({
 		shadowRadius: 3,
 		shadowOpacity: 0.4,
 		shadowColor: gray,
+		shadowOffset: {
+			width: 0,
+			height: 3
+		}
+	},
+  buttonStart: {
+		margin: 10,
+		padding: 5,
+		height: 40,
+		borderRadius: 3,
+		backgroundColor: orange,
+		alignItems: 'center',
+		justifyContent: 'center',
+		shadowRadius: 3,
+		shadowOpacity: 0.4,
+		shadowColor: orange,
 		shadowOffset: {
 			width: 0,
 			height: 3

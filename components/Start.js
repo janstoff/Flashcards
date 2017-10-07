@@ -1,41 +1,54 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
+import {
+	StyleSheet,
+	Text,
+	View,
+	TouchableOpacity,
+	ScrollView
+} from 'react-native'
 import { blue, white, lightBlue, orange } from '../utils/colors'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import { fetchDecks, fetchCards } from '../utils/api'
 import { receiveDecks, receiveCards } from '../actions'
 
-
 class Start extends Component {
-
 	componentDidMount() {
 		const { dispatch, receiveDecks, receiveCards } = this.props
 
-		fetchDecks()
-			.then(decks => receiveDecks(decks))
+		fetchDecks().then(decks => receiveDecks(decks))
 
-		fetchCards()
-			.then(cards => receiveCards(cards))
+		fetchCards().then(cards => receiveCards(cards))
 	}
 
 	render() {
-		const { navigation, decks } = this.props
+		const { navigation, decks, cards } = this.props
+		const numberOfDecks = Object.keys(decks).length
 
 		return (
 			<View style={styles.container}>
 				<ScrollView contentContainerStyle={styles.container}>
-					{decks &&
+					{numberOfDecks > 0 ? (
 						_.map(decks, deck => {
+							const cardsPerDeck = Object.keys(
+								_.filter(cards, { deckID: deck.id })
+							).length
+
 							return (
 								<TouchableOpacity
-	                key={deck.id}
-									style={styles.button1}
-									onPress={() => navigation.navigate('Deck', { activeDeck: deck })}>
+									key={deck.id}
+									style={styles.buttonDeck}
+									onPress={() =>
+										navigation.navigate('Deck', { activeDeck: deck })}>
 									<Text style={styles.buttonText}>{deck.title}</Text>
+									<Text style={styles.buttonText}>{cardsPerDeck}</Text>
 								</TouchableOpacity>
 							)
-						})}
+						})
+					) : (
+						<Text>Currently no decks yet. Add decks below.</Text>
+					)
+				}
 				</ScrollView>
 				<TouchableOpacity
 					style={styles.button2}
@@ -54,7 +67,9 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center'
 	},
-	button1: {
+	buttonDeck: {
+		display: 'flex',
+		flexDirection: 'row',
 		margin: 20,
 		paddingTop: 5,
 		paddingBottom: 5,
@@ -65,7 +80,7 @@ const styles = StyleSheet.create({
 		borderRadius: 3,
 		backgroundColor: orange,
 		alignItems: 'center',
-		justifyContent: 'center',
+		justifyContent: 'space-between',
 		shadowRadius: 3,
 		shadowOpacity: 0.4,
 		shadowColor: orange,
@@ -97,9 +112,10 @@ const styles = StyleSheet.create({
 	}
 })
 
-function mapStateToProps({ decks }) {
+function mapStateToProps({ decks, cards }) {
 	return {
-		decks
+		decks,
+		cards
 	}
 }
 

@@ -13,7 +13,7 @@ export function submitDeck(deck, id) {
 }
 
 export function fetchDecks() {
-	//AsyncStorage.clear()
+	AsyncStorage.clear()
 	return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(results =>
 		JSON.parse(results)
 	)

@@ -13,8 +13,6 @@ import { addDeck } from '../actions'
 
 const uuid = require('uuid/v4')
 
-
-
 class AddDeck extends Component {
 	state = {
 		title: ' '
@@ -34,19 +32,17 @@ class AddDeck extends Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
-				<KeyboardAvoidingView>
-					<Text>What is the title of your new Deck?</Text>
-					<TextInput
-						style={styles.textInput}
-						value={this.state.title}
-						onChangeText={input => this.setState({ title: input })}
-					/>
-					<TouchableOpacity style={styles.button} onPress={() => this.submit()}>
-						<Text style={styles.buttonText}>SUBMIT</Text>
-					</TouchableOpacity>
-				</KeyboardAvoidingView>
-			</View>
+			<KeyboardAvoidingView behavior="padding" style={styles.container}>
+				<Text>What is the title of your new Deck?</Text>
+				<TextInput
+					style={styles.textInput}
+					value={this.state.title}
+					onChangeText={input => this.setState({ title: input })}
+				/>
+				<TouchableOpacity style={styles.button} onPress={() => this.submit()}>
+					<Text style={styles.buttonText}>SUBMIT</Text>
+				</TouchableOpacity>
+			</KeyboardAvoidingView>
 		)
 	}
 }

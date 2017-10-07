@@ -40,25 +40,23 @@ class AddCard extends Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
-				<KeyboardAvoidingView>
-					<Text>Question:</Text>
-					<TextInput
-						style={styles.textInput}
-						value={this.state.question}
-						onChangeText={input => this.setState({ question: input })}
-					/>
-					<Text>Answer:</Text>
-					<TextInput
-						style={styles.textInput}
-						value={this.state.answer}
-						onChangeText={input => this.setState({ answer: input })}
-					/>
-					<TouchableOpacity style={styles.button} onPress={() => this.submit()}>
-						<Text style={styles.buttonText}>Submit</Text>
-					</TouchableOpacity>
-				</KeyboardAvoidingView>
-			</View>
+			<KeyboardAvoidingView behaviour="padding" style={styles.container}>
+				<Text>Question:</Text>
+				<TextInput
+					style={styles.textInput}
+					value={this.state.question}
+					onChangeText={input => this.setState({ question: input })}
+				/>
+				<Text>Answer:</Text>
+				<TextInput
+					style={styles.textInput}
+					value={this.state.answer}
+					onChangeText={input => this.setState({ answer: input })}
+				/>
+				<TouchableOpacity style={styles.button} onPress={() => this.submit()}>
+					<Text style={styles.buttonText}>Submit</Text>
+				</TouchableOpacity>
+			</KeyboardAvoidingView>
 		)
 	}
 }

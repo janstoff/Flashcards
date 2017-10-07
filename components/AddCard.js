@@ -40,7 +40,7 @@ class AddCard extends Component {
 
 	render() {
 		return (
-			<KeyboardAvoidingView behaviour="padding" style={styles.container}>
+			<KeyboardAvoidingView behavior="padding" style={styles.container}>
 				<Text>Question:</Text>
 				<TextInput
 					style={styles.textInput}

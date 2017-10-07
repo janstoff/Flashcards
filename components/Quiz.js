@@ -1,8 +1,21 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import { green, red, white, orange, blue, black, lightBlue, gray } from '../utils/colors'
+import {
+	green,
+	red,
+	white,
+	orange,
+	blue,
+	black,
+	lightBlue,
+	gray
+} from '../utils/colors'
 import { connect } from 'react-redux'
 import _ from 'lodash'
+import {
+	clearLocalNotification,
+	setLocalNotification
+} from '../utils/notifications'
 
 class Quiz extends Component {
 	state = {
@@ -18,6 +31,10 @@ class Quiz extends Component {
 		return {
 			title: `Quiz: ${activeDeck.title}`
 		}
+	}
+
+	resetNotifications() {
+		clearLocalNotification().then(setLocalNotification)
 	}
 
 	onClickCorrect() {
@@ -36,32 +53,33 @@ class Quiz extends Component {
 		})
 	}
 
-  onRestart() {
-    this.setState({
-      cardIndex: 0,
-      questionMode: true,
-      correct: 0,
-      incorrect: 0
-    })
-  }
+	onRestart() {
+		this.setState({
+			cardIndex: 0,
+			questionMode: true,
+			correct: 0,
+			incorrect: 0
+		})
+	}
 
 	render() {
 		const { questionMode, cardIndex, correct, incorrect } = this.state
 		const { cards, navigation } = this.props
 		const result = correct / (correct + incorrect)
 		const currentCard = `${cardIndex + 1} / ${cards.length}`
+		const reachedEndOfDeck = cards[cardIndex] === undefined
 
-		if (cards[cardIndex] === undefined) {
+		if (reachedEndOfDeck) {
+			this.resetNotifications()
+
 			return (
 				<View style={styles.container}>
 					<Text>You got {result * 100}% of answers correct this time.</Text>
-          <TouchableOpacity style={styles.buttonStart}>
-  					<Text
-  						style={styles.buttonText}
-  						onPress={() => this.onRestart()}>
-  						Restart Quiz
-  					</Text>
-          </TouchableOpacity>
+					<TouchableOpacity style={styles.buttonStart}>
+						<Text style={styles.buttonText} onPress={() => this.onRestart()}>
+							Restart Quiz
+						</Text>
+					</TouchableOpacity>
 					<TouchableOpacity
 						style={styles.buttonHome}
 						onPress={() => navigation.navigate('Start')}>
@@ -73,23 +91,25 @@ class Quiz extends Component {
 
 		return (
 			<View style={styles.container}>
-        <Text style={{ marginBottom: 2, marginTop: 5 }}>{currentCard}</Text>
+				<Text style={{ marginBottom: 2, marginTop: 5 }}>{currentCard}</Text>
 				{questionMode ? (
 					<View style={styles.card}>
 						<Text style={{ color: black, fontSize: 20, marginBottom: 20 }}>
 							{cards[cardIndex].question}
 						</Text>
-            <TouchableOpacity style={styles.buttonSeeAnswer}>
-              <Text
-  							style={{ color: orange, fontSize: 16 }}
-  							onPress={() => this.setState({ questionMode: false })}>
-  							see Answer
-  						</Text>
-            </TouchableOpacity>
+						<TouchableOpacity style={styles.buttonSeeAnswer}>
+							<Text
+								style={{ color: orange, fontSize: 16 }}
+								onPress={() => this.setState({ questionMode: false })}>
+								see Answer
+							</Text>
+						</TouchableOpacity>
 					</View>
 				) : (
 					<View style={styles.card}>
-						<Text style={{ color: black, fontSize: 20 }}>{cards[cardIndex].answer}</Text>
+						<Text style={{ color: black, fontSize: 20 }}>
+							{cards[cardIndex].answer}
+						</Text>
 						<TouchableOpacity
 							style={styles.buttonCorrect}
 							onPress={() => this.onClickCorrect()}>
@@ -114,16 +134,16 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center'
 	},
-  card: {
+	card: {
 		flex: 1,
 		backgroundColor: lightBlue,
 		marginTop: 30,
 		marginBottom: 20,
 		padding: 5,
 		width: 250,
-    height: 180,
-    borderWidth: 1,
-    borderColor: orange,
+		height: 180,
+		borderWidth: 1,
+		borderColor: orange,
 		borderRadius: 3,
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -167,7 +187,7 @@ const styles = StyleSheet.create({
 			height: 3
 		}
 	},
-  buttonSeeAnswer: {
+	buttonSeeAnswer: {
 		margin: 10,
 		padding: 5,
 		height: 40,
@@ -183,7 +203,7 @@ const styles = StyleSheet.create({
 			height: 3
 		}
 	},
-  buttonStart: {
+	buttonStart: {
 		margin: 10,
 		padding: 5,
 		height: 40,

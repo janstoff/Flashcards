@@ -11,19 +11,30 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 import { fetchDecks, fetchCards } from '../utils/api'
 import { receiveDecks, receiveCards } from '../actions'
+import { AppLoading } from 'expo'
 
 class Start extends Component {
+
+	state = {
+		ready: false,
+	}
+
 	componentDidMount() {
 		const { dispatch, receiveDecks, receiveCards } = this.props
 
 		fetchDecks().then(decks => receiveDecks(decks))
 
 		fetchCards().then(cards => receiveCards(cards))
+
+		.then(this.setState( { ready: true }))
 	}
 
 	render() {
 		const { navigation, decks, cards } = this.props
+		const { ready } = this.state
 		const numberOfDecks = Object.keys(decks).length
+
+		if(!ready) { return <AppLoading /> }
 
 		return (
 			<View style={styles.container}>

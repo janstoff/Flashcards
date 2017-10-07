@@ -4,7 +4,8 @@ import {
 	Text,
 	View,
 	TouchableOpacity,
-	TextInput
+	TextInput,
+	KeyboardAvoidingView
 } from 'react-native'
 import { lightBlue, white, gray } from '../utils/colors'
 import { connect } from 'react-redux'
@@ -23,7 +24,7 @@ class AddDeck extends Component {
 		const { navigation, addDeck } = this.props
 		const deck = this.state.title
 		const id = uuid()
-		
+
 		addDeck(deck, id) //to redux state
 
 		//add Deck to AsyncStorage
@@ -34,15 +35,17 @@ class AddDeck extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text>What is the title of your new Deck?</Text>
-				<TextInput
-					style={styles.textInput}
-					value={this.state.title}
-					onChangeText={input => this.setState({ title: input })}
-				/>
-				<TouchableOpacity style={styles.button} onPress={() => this.submit()}>
-					<Text style={styles.buttonText}>SUBMIT</Text>
-				</TouchableOpacity>
+				<KeyboardAvoidingView>
+					<Text>What is the title of your new Deck?</Text>
+					<TextInput
+						style={styles.textInput}
+						value={this.state.title}
+						onChangeText={input => this.setState({ title: input })}
+					/>
+					<TouchableOpacity style={styles.button} onPress={() => this.submit()}>
+						<Text style={styles.buttonText}>SUBMIT</Text>
+					</TouchableOpacity>
+				</KeyboardAvoidingView>
 			</View>
 		)
 	}

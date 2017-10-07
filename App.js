@@ -10,6 +10,7 @@ import { Provider } from 'react-redux'
 import { Constants } from 'expo'
 import { blue, white } from './utils/colors'
 import { StackNavigator, NavigationActions } from 'react-navigation'
+import { setLocalNotification } from './utils/notifications'
 
 function CustomStatusBar({ backgroundColor, ...props }) {
 	return (
@@ -71,6 +72,9 @@ const MainNavigator = StackNavigator({
 })
 
 class App extends Component {
+	componentDidMount() {
+		setLocalNotification()
+	}
 	render() {
 		return (
       <Provider store={store}>
